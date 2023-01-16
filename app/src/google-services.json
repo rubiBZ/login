@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "551479864937",
+    "firebase_url": "https://login-b63de-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "login-b63de",
+    "storage_bucket": "login-b63de.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:551479864937:android:c186c8681313cf22f4fcf8",
+        "android_client_info": {
+          "package_name": "com.example.login"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "551479864937-vvl5ud8hi1ji86clphkhfgo03778k54f.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.login",
+            "certificate_hash": "4c538dbc0b3867c5a04531eea31645479ef82f09"
+          }
+        },
+        {
+          "client_id": "551479864937-thfncrj6g5an100ap7pv7blq8tnfu43k.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAGbVHo4M9ZAm-wzvM4tkcRCgQ2qhReb1Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "551479864937-thfncrj6g5an100ap7pv7blq8tnfu43k.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
