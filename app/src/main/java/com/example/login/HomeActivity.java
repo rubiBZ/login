@@ -71,8 +71,9 @@ public class HomeActivity extends AppCompatActivity {
                     id.setError( "יש להכניס תעודת זהות" );
                     full = false;}
                 if(full==true) {
-                    Intent i = new Intent(getApplicationContext(), MainActivity_backup.class);
-                    startActivity(i);
+                    //Intent i = new Intent(getApplicationContext(), MainActivity_backup.class);
+                    //startActivity(i);
+
                 }
             }
         });
