@@ -2,7 +2,6 @@ package com.example.login;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -11,6 +10,9 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.IgnoreExtraProperties;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -18,11 +20,14 @@ public class HomeActivity extends AppCompatActivity {
     private TextView loginTV;
     private Button registerBtn;
     private ProgressBar loadingPB;
+    private DatabaseReference mDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+        mDatabase = FirebaseDatabase.getInstance().getReference();
 
         userFirstNameEdt = findViewById(R.id.FirstName);
         userLastNameEdt = findViewById(R.id.LastName);
@@ -73,9 +78,44 @@ public class HomeActivity extends AppCompatActivity {
                 if(full==true) {
                     //Intent i = new Intent(getApplicationContext(), MainActivity_backup.class);
                     //startActivity(i);
-
+                    User user = new User(userFirstName,userLastName,password,
+                                        userEmail,userPhone,userId);
+                    mDatabase.child("users").child(userId).setValue(user);
                 }
             }
         });
+    }
+
+    public void writeNewUser(String userFirstName,String userLastName,String password,
+                             String userEmail,String userPhone,String userId) {
+        User user = new User(userFirstName, userLastName,password,userEmail,userPhone,userId);
+
+        mDatabase.child("users").child(userId).setValue(user);
+    }
+
+    @IgnoreExtraProperties
+    public static class User {
+
+        public String userFirstName;
+        public String userLastName;
+        public String password;
+        public String userEmail;
+        public String userPhone;
+        public String userId;
+
+        public User() {
+            // Default constructor required for calls to DataSnapshot.getValue(com.example.login.HomeActivity.User.class)
+        }
+
+        public User(String userFirstName,String userLastName,String password,
+                    String userEmail,String userPhone,String userId) {
+            this.userFirstName = userFirstName;
+            this.userLastName = userLastName;
+            this.password = password;
+            this.userEmail = userEmail;
+            this.userPhone = userPhone;
+            this.userId = userId;
+        }
+
     }
 }

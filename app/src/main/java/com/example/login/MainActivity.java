@@ -24,18 +24,9 @@ import com.google.firebase.auth.PhoneAuthProvider;
 import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends AppCompatActivity {
-
-    // variable for FirebaseAuth class
     private FirebaseAuth mAuth;
-
-    // variable for our text input
-    // field for phone and OTP.
     private EditText edtPhone, edtOTP;
-
-    // buttons for generating OTP and verifying OTP
     private Button verifyOTPBtn, generateOTPBtn;
-
-    // string for storing our verification ID
     private String verificationId;
 
     @Override
@@ -43,17 +34,16 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // below line is for getting instance
-        // of our FirebaseAuth.
-        mAuth = FirebaseAuth.getInstance();
+        Intent i = new Intent(MainActivity.this, HomeActivity.class);
+        startActivity(i);
 
-        // initializing variables for button and Edittext.
+        /*
+        mAuth = FirebaseAuth.getInstance();
         edtPhone = findViewById(R.id.idEdtPhoneNumber);
         edtOTP = findViewById(R.id.idEdtOtp);
         verifyOTPBtn = findViewById(R.id.idBtnVerify);
         generateOTPBtn = findViewById(R.id.idBtnGetOtp);
 
-        // setting onclick listener for generate OTP button.
         generateOTPBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -187,5 +177,7 @@ public class MainActivity extends AppCompatActivity {
         // after getting credential we are
         // calling sign in method.
         signInWithCredential(credential);
+
+         */
     }
 }
