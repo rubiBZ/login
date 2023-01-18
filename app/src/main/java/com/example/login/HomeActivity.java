@@ -1,18 +1,29 @@
 package com.example.login;
 
+import static android.content.ContentValues.TAG;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.IgnoreExtraProperties;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -21,13 +32,15 @@ public class HomeActivity extends AppCompatActivity {
     private Button registerBtn;
     private ProgressBar loadingPB;
     private DatabaseReference mDatabase;
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        mDatabase = FirebaseDatabase.getInstance().getReference();
+         //= FirebaseDatabase.getInstance().getReference();
+
 
         userFirstNameEdt = findViewById(R.id.FirstName);
         userLastNameEdt = findViewById(R.id.LastName);
@@ -75,22 +88,40 @@ public class HomeActivity extends AppCompatActivity {
                 if( TextUtils.isEmpty(id.getText())){
                     id.setError( "יש להכניס תעודת זהות" );
                     full = false;}
-                if(full==true) {
+                //if(full ==true) {
                     //Intent i = new Intent(getApplicationContext(), MainActivity_backup.class);
                     //startActivity(i);
-                    User user = new User(userFirstName,userLastName,password,
+                    writeNewUser(userFirstName,userLastName,password,
                                         userEmail,userPhone,userId);
-                    mDatabase.child("users").child(userId).setValue(user);
-                }
+               // }
             }
         });
     }
 
     public void writeNewUser(String userFirstName,String userLastName,String password,
                              String userEmail,String userPhone,String userId) {
-        User user = new User(userFirstName, userLastName,password,userEmail,userPhone,userId);
 
-        mDatabase.child("users").child(userId).setValue(user);
+        Map<String, Object> user = new HashMap<>();
+        user.put("first", userFirstName);
+        user.put("last", userLastName);
+        user.put("pw", password);
+        user.put("phone", userPhone);
+        user.put("mail", userEmail);
+
+        db.collection("users").document(userId)
+            .set(user)
+            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(Void aVoid) {
+                    Log.d(TAG, "DocumentSnapshot successfully written!");
+                }
+            })
+            .addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Log.w(TAG, "Error writing document", e);
+                }
+            });
     }
 
     @IgnoreExtraProperties

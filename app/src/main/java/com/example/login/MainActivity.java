@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
         Intent i = new Intent(MainActivity.this, HomeActivity.class);
         startActivity(i);
 
-        /*
+/*
         mAuth = FirebaseAuth.getInstance();
         edtPhone = findViewById(R.id.idEdtPhoneNumber);
         edtOTP = findViewById(R.id.idEdtOtp);
@@ -177,7 +177,7 @@ public class MainActivity extends AppCompatActivity {
         // after getting credential we are
         // calling sign in method.
         signInWithCredential(credential);
+*/
 
-         */
     }
 }
